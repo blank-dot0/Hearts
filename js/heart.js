@@ -37,7 +37,7 @@ function heart(t){
 
 // Create particles
 
-for(let i=0;i<5000;i++){
+for(let i=0;i<2500;i++){
 
 
     let point =
@@ -45,31 +45,35 @@ for(let i=0;i<5000;i++){
 
 
 
-    particles.push({
-
-        x:Math.random()*canvas.width,
-
-        y:Math.random()*canvas.height,
 
 
-        targetX:
-        canvas.width/2 + point.x*14,
 
+particles.forEach(p=>{
 
-        targetY:
-        canvas.height/2 + point.y*14,
+particles.push({
 
+    x:Math.random()*canvas.width,
 
-        size:
-        Math.random()*2+1,
+    y:Math.random()*canvas.height,
 
+    z:Math.random()*200-100,
 
-        speed:
-        0.02 + Math.random()*0.04
+    targetX:
+    canvas.width/2 + point.x*14,
 
-    });
+    targetY:
+    canvas.height/2 + point.y*14,
 
+    targetZ:
+    Math.random()*200-100,
 
+    size:
+    Math.random()*2+1,
+
+    speed:
+    0.02 + Math.random()*0.04
+
+});
 }
 
 
@@ -94,70 +98,6 @@ rotation += 0.002;
 scale =
 1 + Math.sin(Date.now()*0.003)*0.03;
 
-
-
-particles.forEach(p=>{
-
-
-    let dx =
-    p.targetX-p.x;
-
-
-    let dy =
-    p.targetY-p.y;
-
-
-    p.x += dx*p.speed;
-
-    p.y += dy*p.speed;
-
-
-
-    // 3D rotation effect
-
-    let centerX =
-    canvas.width/2;
-
-
-    let centerY =
-    canvas.height/2;
-
-
-
-    let x =
-    (p.x-centerX)
-    *Math.cos(rotation)
-    -
-    (p.y-centerY)
-    *Math.sin(rotation);
-
-
-
-    let y =
-    (p.x-centerX)
-    *Math.sin(rotation)
-    +
-    (p.y-centerY)
-    *Math.cos(rotation);
-
-
-
-    ctx.beginPath();
-
-
-    ctx.arc(
-
-        centerX+x*scale,
-
-        centerY+y*scale,
-
-        p.size,
-
-        0,
-
-        Math.PI*2
-
-    );
 
 
     ctx.fillStyle="#ff5fa8";
