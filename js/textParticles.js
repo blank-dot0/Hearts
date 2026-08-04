@@ -1,3 +1,9 @@
+// ======================================
+// PARTICLE TEXT ENGINE
+// Hi My Princess 🩷
+// ======================================
+
+
 const textCanvas =
 document.getElementById("textCanvas");
 
@@ -6,23 +12,36 @@ const textCtx =
 textCanvas.getContext("2d");
 
 
-textCanvas.width =
-innerWidth;
 
+let textParticles = [];
+
+
+
+function resizeTextCanvas(){
+
+textCanvas.width =
+window.innerWidth;
 
 textCanvas.height =
-innerHeight;
+window.innerHeight;
+
+}
+
+
+resizeTextCanvas();
+
+window.addEventListener(
+"resize",
+resizeTextCanvas
+);
 
 
 
-let textParticles=[];
+
+// Create text particles
 
 
-
-// Text particle creation
-
-
-function createTextParticles(){
+function createText(){
 
 
 textCtx.clearRect(
@@ -34,15 +53,22 @@ textCanvas.height
 
 
 
+let fontSize =
+window.innerWidth < 600
+? 35
+: 60;
+
+
+
 textCtx.font =
-"bold 70px Poppins";
-
-
-textCtx.fillStyle="white";
+`bold ${fontSize}px Poppins`;
 
 
 
 textCtx.textAlign="center";
+
+textCtx.fillStyle="white";
+
 
 
 textCtx.fillText(
@@ -57,7 +83,9 @@ textCanvas.height/2
 
 
 
-let data =
+
+
+let pixels =
 textCtx.getImageData(
 
 0,
@@ -79,15 +107,16 @@ textParticles=[];
 for(
 let y=0;
 y<textCanvas.height;
-y+=5
+y+=4
 ){
 
 
 for(
 let x=0;
 x<textCanvas.width;
-x+=5
+x+=4
 ){
+
 
 
 let index =
@@ -95,7 +124,8 @@ let index =
 
 
 
-if(data[index+3]>0){
+if(pixels[index+3]>0){
+
 
 
 textParticles.push({
@@ -109,27 +139,32 @@ y:
 Math.random()*textCanvas.height,
 
 
-
-tx:x,
-
-
-ty:y,
+targetX:x,
 
 
-size:2,
+targetY:y,
+
+
+size:
+Math.random()*2+1,
 
 
 speed:
-0.03+Math.random()*0.05
+0.04+
+Math.random()*0.05
+
 
 
 });
 
 
+
 }
 
 
+
 }
+
 
 
 }
@@ -138,36 +173,30 @@ speed:
 
 
 textCtx.clearRect(
-
 0,
-
 0,
-
 textCanvas.width,
-
 textCanvas.height
-
 );
-
 
 
 }
 
+
+
+
+
+// Animate
 
 
 function animateText(){
 
 
 textCtx.clearRect(
-
 0,
-
 0,
-
 textCanvas.width,
-
 textCanvas.height
-
 );
 
 
@@ -176,15 +205,18 @@ textParticles.forEach(p=>{
 
 
 p.x +=
-(p.tx-p.x)*p.speed;
+(p.targetX-p.x)
+*p.speed;
 
 
 p.y +=
-(p.ty-p.y)*p.speed;
+(p.targetY-p.y)
+*p.speed;
 
 
 
 textCtx.beginPath();
+
 
 
 textCtx.arc(
@@ -203,13 +235,16 @@ Math.PI*2
 
 
 
-textCtx.fillStyle="#ff72b6";
+textCtx.fillStyle=
+"#ff75b7";
+
 
 
 textCtx.shadowBlur=15;
 
+textCtx.shadowColor=
+"#ff1493";
 
-textCtx.shadowColor="#ff4fa0";
 
 
 textCtx.fill();
@@ -225,39 +260,23 @@ animateText
 );
 
 
-
 }
+
+
 
 
 
 // Start after heart
 
+
 setTimeout(()=>{
 
 
-createTextParticles();
+createText();
 
 
 animateText();
 
 
 
-},9500);
-
-
-
-
-
-window.addEventListener(
-
-"resize",
-
-()=>{
-
-
-textCanvas.width=innerWidth;
-
-textCanvas.height=innerHeight;
-
-
-});
+},7000);
