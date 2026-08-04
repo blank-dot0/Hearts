@@ -1,50 +1,36 @@
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
-
 font-family:"Poppins",sans-serif;
-
 }
 
 
 body{
 
-width:100%;
 height:100vh;
+width:100%;
 
 overflow:hidden;
 
 display:flex;
-
 justify-content:center;
-
 align-items:center;
 
-
 background:
-
 linear-gradient(
-
 135deg,
-
-#ffe1ed,
-
-#fff5fa
-
+#ffe0ec,
+#fff7fb
 );
 
-
 transition:2s;
-
 
 }
 
 
 
-/* Background */
-
+/* Animated background glow */
 
 #heartBackground{
 
@@ -56,16 +42,31 @@ height:100%;
 background:
 
 radial-gradient(
-
 circle,
-
-rgba(255,120,180,.25),
-
-transparent 60%
-
+rgba(255,80,160,.35),
+transparent 55%
 );
 
+animation:
+
+backgroundPulse 5s infinite;
+
 }
+
+
+
+@keyframes backgroundPulse{
+
+
+50%{
+
+transform:scale(1.15);
+
+}
+
+
+}
+
 
 
 
@@ -84,67 +85,132 @@ height:100%;
 
 
 
-/* Message */
+/* Heart message */
 
 
 #message{
 
-
 position:absolute;
+
+z-index:5;
+
+
+font-size:45px;
+
+font-weight:700;
 
 
 color:#ff4f9a;
 
 
-font-size:45px;
-
-
-font-weight:700;
-
-
 opacity:0;
+
+
+transform:
+
+scale(.5);
 
 
 text-shadow:
 
-
-0 0 20px #ff8fc4,
-
-0 0 40px #ffb6d9;
-
-
-transform:scale(.5);
-
-
-
-transition:
-
-all 2s ease;
+0 0 15px #ff8bc2,
+0 0 35px #ff5fa8;
 
 
 
 }
-
-
 
 
 
 #message.show{
 
 
-opacity:1;
+animation:
 
-
-transform:scale(1);
+textAppear 2s forwards;
 
 
 }
 
 
 
+@keyframes textAppear{
 
 
-/* Floating sparkles */
+to{
+
+opacity:1;
+
+transform:scale(1);
+
+}
+
+
+}
+
+
+
+/* Heart glow pulse */
+
+
+.heartGlow{
+
+
+animation:
+
+heartBeat 1.5s infinite;
+
+
+}
+
+
+
+@keyframes heartBeat{
+
+
+0%{
+
+filter:
+drop-shadow(
+0 0 10px pink
+);
+
+
+}
+
+
+50%{
+
+
+filter:
+
+drop-shadow(
+0 0 40px hotpink
+);
+
+
+}
+
+
+100%{
+
+
+filter:
+
+drop-shadow(
+0 0 10px pink
+);
+
+
+}
+
+
+
+}
+
+
+
+/* Sparkle style */
 
 
 .sparkle{
@@ -153,66 +219,48 @@ transform:scale(1);
 position:absolute;
 
 
-width:6px;
+width:5px;
 
-height:6px;
-
-
-background:#ff8fc4;
+height:5px;
 
 
 border-radius:50%;
 
 
+background:#ff9ac9;
+
+
 box-shadow:
 
-0 0 15px pink;
-
+0 0 20px #ff4f9a;
 
 
 animation:
 
-sparkleMove 5s linear infinite;
+sparkleFloat 5s linear infinite;
 
 
 }
 
 
 
-@keyframes sparkleMove{
+@keyframes sparkleFloat{
 
 
 from{
 
-
 transform:
 
 translateY(100vh);
-
-
-opacity:0;
-
-
-}
-
-
-20%{
-
-opacity:1;
 
 }
 
 
 to{
 
-
 transform:
 
 translateY(-20vh);
-
-
-opacity:0;
-
 
 }
 
@@ -230,15 +278,10 @@ body.night{
 
 background:
 
-
 linear-gradient(
-
 135deg,
-
-#170020,
-
-#400040
-
+#14001f,
+#420044
 );
 
 
@@ -246,17 +289,21 @@ linear-gradient(
 
 
 
-body.night #message{
+body.night #heartBackground{
 
 
-color:#ffc1e0;
+background:
+
+radial-gradient(
+circle,
+rgba(255,0,150,.2),
+transparent 60%
+);
 
 
 }
 
 
-
-/* Mobile */
 
 
 @media(max-width:600px){
@@ -265,10 +312,6 @@ color:#ffc1e0;
 #message{
 
 font-size:28px;
-
-text-align:center;
-
-padding:20px;
 
 }
 
