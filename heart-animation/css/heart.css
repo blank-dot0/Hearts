@@ -395,3 +395,53 @@ text-shadow:
 
 
 }
+.petal{
+
+
+position:absolute;
+
+
+top:-20px;
+
+
+width:14px;
+
+height:20px;
+
+
+background:#ff9fc9;
+
+
+border-radius:
+
+100% 0 100% 0;
+
+
+opacity:.8;
+
+
+animation:
+
+petalFall linear infinite;
+
+
+}
+
+
+
+@keyframes petalFall{
+
+
+to{
+
+
+transform:
+
+translateY(110vh)
+rotate(360deg);
+
+
+}
+
+
+  }
