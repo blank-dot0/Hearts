@@ -317,3 +317,81 @@ font-size:28px;
 
 
 }
+#heartCanvas{
+
+animation:
+
+heartBreath 3s infinite;
+
+}
+
+
+
+@keyframes heartBreath{
+
+
+0%{
+
+transform:scale(1);
+
+}
+
+
+50%{
+
+transform:scale(1.04);
+
+}
+
+
+100%{
+
+transform:scale(1);
+
+}
+
+
+}
+
+
+
+#message{
+
+letter-spacing:2px;
+
+}
+
+
+
+#particleText{
+
+animation:
+
+glowText 2s infinite alternate;
+
+}
+
+
+
+@keyframes glowText{
+
+
+from{
+
+text-shadow:
+
+0 0 10px pink;
+
+}
+
+
+to{
+
+text-shadow:
+
+0 0 40px hotpink;
+
+}
+
+
+}
