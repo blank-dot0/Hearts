@@ -1,8 +1,3 @@
-// =================================
-// PARTICLE HEART ENGINE
-// =================================
-
-
 const canvas =
 document.getElementById("heartCanvas");
 
@@ -11,46 +6,40 @@ const ctx =
 canvas.getContext("2d");
 
 
-
 canvas.width =
-window.innerWidth;
-
+innerWidth;
 
 canvas.height =
-window.innerHeight;
+innerHeight;
 
 
 
 let particles=[];
 
 
+let rotation = 0;
 
-// Heart equation
+
+let formed=false;
+
+
 
 function heartShape(t){
 
 
-let x =
-16*Math.pow(Math.sin(t),3);
-
-
-
-let y =
-13*Math.cos(t)
--5*Math.cos(2*t)
--2*Math.cos(3*t)
--Math.cos(4*t);
-
-
-
 return {
 
-x:x*15,
+x:
+16*Math.pow(Math.sin(t),3),
 
-y:-y*15
+
+y:
+-(13*Math.cos(t)
+-5*Math.cos(2*t)
+-2*Math.cos(3*t)
+-Math.cos(4*t))
 
 };
-
 
 }
 
@@ -60,13 +49,15 @@ y:-y*15
 // Create particles
 
 
-for(let i=0;i<2500;i++){
+for(let i=0;i<4000;i++){
+
+
+let t =
+Math.random()*Math.PI*2;
 
 
 let point =
-heartShape(
-Math.random()*Math.PI*2
-);
+heartShape(t);
 
 
 
@@ -81,12 +72,14 @@ y:
 Math.random()*canvas.height,
 
 
-targetX:
-canvas.width/2+point.x,
+tx:
+canvas.width/2+
+point.x*15,
 
 
-targetY:
-canvas.height/2+point.y,
+ty:
+canvas.height/2+
+point.y*15,
 
 
 size:
@@ -94,8 +87,7 @@ Math.random()*2+1,
 
 
 speed:
-Math.random()*0.03+0.01
-
+Math.random()*0.04+0.02
 
 
 });
@@ -104,9 +96,6 @@ Math.random()*0.03+0.01
 }
 
 
-
-
-// Animation
 
 
 function animate(){
@@ -125,12 +114,11 @@ particles.forEach(p=>{
 
 
 p.x +=
-(p.targetX-p.x)*p.speed;
-
+(p.tx-p.x)*p.speed;
 
 
 p.y +=
-(p.targetY-p.y)*p.speed;
+(p.ty-p.y)*p.speed;
 
 
 
@@ -153,17 +141,15 @@ Math.PI*2
 
 
 
-ctx.fillStyle =
-"#ff5fa8";
+ctx.fillStyle="#ff5fa8";
 
 
-ctx.shadowBlur=15;
+ctx.shadowBlur=20;
 
 ctx.shadowColor="#ff5fa8";
 
 
 ctx.fill();
-
 
 
 });
@@ -182,11 +168,19 @@ animate();
 
 
 
-
-// Show message after heart forms
+// After heart completion
 
 
 setTimeout(()=>{
+
+
+formed=true;
+
+
+document
+.getElementById("heartCanvas")
+.classList.add("heartGlow");
+
 
 
 document
@@ -194,4 +188,20 @@ document
 .classList.add("show");
 
 
-},6500);
+
+},7000);
+
+
+
+
+// Resize support
+
+
+window.addEventListener(
+"resize",
+()=>{
+
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+});
