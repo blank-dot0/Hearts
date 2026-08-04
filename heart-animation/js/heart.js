@@ -1,96 +1,73 @@
-const canvas =
-document.getElementById("heartCanvas");
+const canvas = document.getElementById("heartCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
 
-const ctx =
-canvas.getContext("2d");
+let particles = [];
 
-
-canvas.width =
-innerWidth;
-
-canvas.height =
-innerHeight;
-
-
-
-let particles=[];
-
+let heartComplete = false;
 
 let rotation = 0;
 
-
-let formed=false;
-
+let scale = 1;
 
 
-function heartShape(t){
 
+// Heart equation
 
-return {
+function heart(t){
 
-x:
-16*Math.pow(Math.sin(t),3),
+    return {
 
+        x:16*Math.pow(Math.sin(t),3),
 
-y:
--(13*Math.cos(t)
--5*Math.cos(2*t)
--2*Math.cos(3*t)
--Math.cos(4*t))
+        y:
+        -(13*Math.cos(t)
+        -5*Math.cos(2*t)
+        -2*Math.cos(3*t)
+        -Math.cos(4*t))
 
-};
+    };
 
 }
-
 
 
 
 // Create particles
 
-
-for(let i=0;i<4000;i++){
-
-
-let t =
-Math.random()*Math.PI*2;
+for(let i=0;i<5000;i++){
 
 
-let point =
-heartShape(t);
+    let point =
+    heart(Math.random()*Math.PI*2);
 
 
 
-particles.push({
+    particles.push({
+
+        x:Math.random()*canvas.width,
+
+        y:Math.random()*canvas.height,
 
 
-x:
-Math.random()*canvas.width,
+        targetX:
+        canvas.width/2 + point.x*14,
 
 
-y:
-Math.random()*canvas.height,
+        targetY:
+        canvas.height/2 + point.y*14,
 
 
-tx:
-canvas.width/2+
-point.x*15,
+        size:
+        Math.random()*2+1,
 
 
-ty:
-canvas.height/2+
-point.y*15,
+        speed:
+        0.02 + Math.random()*0.04
 
-
-size:
-Math.random()*2+1,
-
-
-speed:
-Math.random()*0.04+0.02
-
-
-});
+    });
 
 
 }
@@ -98,7 +75,7 @@ Math.random()*0.04+0.02
 
 
 
-function animate(){
+function draw(){
 
 
 ctx.clearRect(
@@ -110,76 +87,115 @@ canvas.height
 
 
 
+rotation += 0.002;
+
+
+
+scale =
+1 + Math.sin(Date.now()*0.003)*0.03;
+
+
+
 particles.forEach(p=>{
 
 
-p.x +=
-(p.tx-p.x)*p.speed;
+    let dx =
+    p.targetX-p.x;
 
 
-p.y +=
-(p.ty-p.y)*p.speed;
+    let dy =
+    p.targetY-p.y;
 
 
+    p.x += dx*p.speed;
 
-ctx.beginPath();
-
-
-ctx.arc(
-
-p.x,
-
-p.y,
-
-p.size,
-
-0,
-
-Math.PI*2
-
-);
+    p.y += dy*p.speed;
 
 
 
-ctx.fillStyle="#ff5fa8";
+    // 3D rotation effect
+
+    let centerX =
+    canvas.width/2;
 
 
-ctx.shadowBlur=20;
+    let centerY =
+    canvas.height/2;
 
-ctx.shadowColor="#ff5fa8";
 
 
-ctx.fill();
+    let x =
+    (p.x-centerX)
+    *Math.cos(rotation)
+    -
+    (p.y-centerY)
+    *Math.sin(rotation);
+
+
+
+    let y =
+    (p.x-centerX)
+    *Math.sin(rotation)
+    +
+    (p.y-centerY)
+    *Math.cos(rotation);
+
+
+
+    ctx.beginPath();
+
+
+    ctx.arc(
+
+        centerX+x*scale,
+
+        centerY+y*scale,
+
+        p.size,
+
+        0,
+
+        Math.PI*2
+
+    );
+
+
+    ctx.fillStyle="#ff5fa8";
+
+
+    ctx.shadowBlur=20;
+
+    ctx.shadowColor="#ff8fc8";
+
+
+    ctx.fill();
+
 
 
 });
 
 
 
-requestAnimationFrame(animate);
+requestAnimationFrame(draw);
 
 
 }
 
 
 
-animate();
+draw();
 
 
 
 
-// After heart completion
+
+// Show text after heart rotation
 
 
 setTimeout(()=>{
 
 
-formed=true;
-
-
-document
-.getElementById("heartCanvas")
-.classList.add("heartGlow");
+heartComplete=true;
 
 
 
@@ -189,12 +205,10 @@ document
 
 
 
-},7000);
+},9000);
 
 
 
-
-// Resize support
 
 
 window.addEventListener(
@@ -202,6 +216,7 @@ window.addEventListener(
 ()=>{
 
 canvas.width=innerWidth;
+
 canvas.height=innerHeight;
 
 });
