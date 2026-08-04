@@ -198,19 +198,7 @@ setTimeout(()=>{
 heartComplete=true;
 
 
-
-document
-.getElementById("message")
-.classList.add("show");
-
-
-
 },9000);
-
-
-
-
-
 window.addEventListener(
 "resize",
 ()=>{
