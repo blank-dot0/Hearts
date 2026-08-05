@@ -17,7 +17,8 @@ let particles = [];
 let startTime =
     performance.now();
 
-let rotation = 0;
+// No heart rotation
+const rotation = 0;
 
 let formationComplete = false;
 
@@ -255,61 +256,28 @@ function animate(time) {
             * p.speed;
 
     });
+    
+// Heart stays still after forming
+formationComplete = elapsed > 2400;
 
+// Gentle heartbeat after heart forms
+let pulse = 1;
 
-    // Start ONE rotation after formation
-    if (elapsed > 2400) {
+if (formationComplete) {
 
-        const rotationProgress =
-            Math.min(
-                (elapsed - 2400)
-                / 2300,
-                1
-            );
-
-        const smooth =
-            rotationProgress
-            * rotationProgress
-            * (3 - 2 * rotationProgress);
-
-        rotation =
-            smooth
-            * Math.PI
-            * 2;
-    }
-
-
-    // Heartbeat after rotation
-    let pulse = 1;
-
-    if (elapsed > 4700) {
-
-        pulse =
-            1
-            + Math.sin(
-                elapsed * 0.006
-            ) * 0.018;
-    }
+    pulse =
+        1
+        + Math.sin(
+            elapsed * 0.005
+        ) * 0.025;
+}
 
 
     particles.forEach(p => {
 
-        // Y-axis 3D rotation
-        const cos =
-            Math.cos(rotation);
-
-        const sin =
-            Math.sin(rotation);
-
-
-        const rotatedX =
-            p.x * cos
-            - p.z * sin;
-
-
-        const rotatedZ =
-            p.x * sin
-            + p.z * cos;
+// No rotation - keep original depth
+const rotatedX = p.x;
+const rotatedZ = p.z;
 
 
         const perspective =
@@ -397,7 +365,7 @@ setTimeout(() => {
         );
     }
 
-}, 5000);
+}, 2800);
 
 
 // ==========================================
