@@ -1,0 +1,694 @@
+/* ==========================================
+   BASIC RESET
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100svh;
+    overflow: hidden;
+    position: relative;
+
+    font-family: "Poppins", sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #fffaf5 0%,
+            #f8f0e8 55%,
+            #eee2d7 100%
+        );
+
+    color: #a91235;
+}
+
+
+/* ==========================================
+   PAPER TEXTURE
+========================================== */
+
+.paper-texture {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    opacity: 0.45;
+
+    background-image:
+        repeating-radial-gradient(
+            circle at 0 0,
+            rgba(120, 70, 55, 0.035) 0,
+            rgba(120, 70, 55, 0.035) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+
+/* ==========================================
+   CENTRAL HEART AREA
+========================================== */
+
+.heart-section {
+    position: fixed;
+
+    left: 50%;
+    top: 48%;
+
+    transform: translate(-50%, -50%);
+
+    width: min(78vw, 760px);
+    height: min(78vw, 760px);
+
+    z-index: 5;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#heartCanvas {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 2;
+}
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+#heartMessage {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -45%)
+        scale(0.7);
+
+    width: 55%;
+
+    text-align: center;
+
+    z-index: 4;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    color: #c21846;
+
+    text-shadow:
+        0 2px 3px rgba(255,255,255,.8),
+        0 0 15px rgba(210, 35, 85, .25);
+
+    transition:
+        opacity 1.4s ease,
+        transform 1.4s ease;
+}
+
+
+#heartMessage.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%, -45%)
+        scale(1);
+}
+
+
+#heartMessage span {
+    display: block;
+}
+
+
+#heartMessage span:first-child {
+    font-size: clamp(25px, 4vw, 46px);
+}
+
+
+#heartMessage span:nth-child(2) {
+    font-size: clamp(35px, 6vw, 68px);
+    font-weight: 700;
+
+    line-height: 0.9;
+}
+
+
+#heartMessage .message-heart {
+    font-size: clamp(24px, 4vw, 42px);
+
+    margin-top: 10px;
+
+    animation: messageHeartbeat 1.4s infinite;
+}
+
+
+@keyframes messageHeartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(1.22);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+
+    60% {
+        transform: scale(1.12);
+    }
+}
+
+
+/* ==========================================
+   HEART SHADOW
+========================================== */
+
+.heart-shadow {
+    position: absolute;
+
+    bottom: 12%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 45%;
+    height: 20px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(165, 25, 55, .18);
+
+    filter: blur(13px);
+
+    z-index: 1;
+
+    animation:
+        shadowPulse 1.7s ease-in-out infinite;
+}
+
+
+@keyframes shadowPulse {
+
+    50% {
+        width: 38%;
+        opacity: .6;
+    }
+}
+
+
+/* ==========================================
+   TOP RIGHT DECORATION
+========================================== */
+
+.top-decoration {
+    position: fixed;
+
+    top: 10px;
+    right: 6%;
+
+    z-index: 3;
+
+    color: #c71540;
+
+    transform: rotate(-8deg);
+}
+
+
+.drawn-heart {
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: clamp(85px, 13vw, 150px);
+
+    line-height: .7;
+
+    font-weight: 700;
+}
+
+
+.small-heart {
+    position: absolute;
+
+    right: -5px;
+    bottom: -20px;
+
+    font-size: 30px;
+
+    animation:
+        smallHeartBeat 1.5s infinite;
+}
+
+
+@keyframes smallHeartBeat {
+
+    50% {
+        transform: scale(1.25);
+    }
+}
+
+
+/* ==========================================
+   RIGHT SIDE HEARTS
+========================================== */
+
+.side-hearts {
+    position: fixed;
+
+    right: 3%;
+
+    top: 18%;
+
+    height: 62%;
+
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    color: #b71132;
+}
+
+
+.side-hearts span {
+    font-size: clamp(15px, 2.5vw, 25px);
+
+    animation:
+        sideHeart 2.5s ease-in-out infinite;
+}
+
+
+.side-hearts span:nth-child(2) {
+    animation-delay: .3s;
+}
+
+.side-hearts span:nth-child(3) {
+    animation-delay: .7s;
+}
+
+.side-hearts span:nth-child(4) {
+    animation-delay: 1s;
+}
+
+.side-hearts span:nth-child(5) {
+    animation-delay: 1.3s;
+}
+
+
+@keyframes sideHeart {
+
+    50% {
+        transform:
+            translateX(-8px)
+            scale(1.15);
+    }
+}
+
+
+/* ==========================================
+   FLOATING HEARTS
+========================================== */
+
+.floating-heart {
+    position: fixed;
+
+    z-index: 1;
+
+    color: rgba(190, 20, 55, .55);
+
+    pointer-events: none;
+
+    animation:
+        floatingHeartMove linear forwards;
+}
+
+
+@keyframes floatingHeartMove {
+
+    0% {
+        transform:
+            translateY(20px)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    20% {
+        opacity: .7;
+    }
+
+    100% {
+        transform:
+            translateY(-120vh)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* ==========================================
+   SPARKLES
+========================================== */
+
+.sparkle {
+    position: fixed;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #e83b68;
+
+    box-shadow:
+        0 0 6px #ff7197,
+        0 0 14px #ff7197;
+
+    pointer-events: none;
+
+    z-index: 4;
+
+    animation:
+        sparkleAnimation 3s ease-in-out forwards;
+}
+
+
+@keyframes sparkleAnimation {
+
+    0% {
+        opacity: 0;
+        transform: scale(.2);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+
+/* ==========================================
+   BOTTOM LEFT COLLAGE
+========================================== */
+
+.bottom-collage {
+    position: fixed;
+
+    left: -30px;
+    bottom: -40px;
+
+    width: min(45vw, 430px);
+    height: min(27vw, 270px);
+
+    z-index: 3;
+
+    transform: rotate(2deg);
+}
+
+
+.newspaper {
+    position: absolute;
+    inset: 0;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(85, 45, 35, .16) 0px,
+            rgba(85, 45, 35, .16) 1px,
+            transparent 1px,
+            transparent 5px
+        ),
+        #d8b49d;
+
+    clip-path:
+        polygon(
+            0 20%,
+            18% 8%,
+            36% 18%,
+            55% 5%,
+            74% 17%,
+            100% 7%,
+            100% 100%,
+            0 100%
+        );
+
+    opacity: .75;
+}
+
+
+.favorite-text {
+    position: absolute;
+
+    left: 32%;
+    top: 35%;
+
+    color: #191311;
+
+    transform: rotate(-5deg);
+
+    text-align: center;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+}
+
+
+.favorite-text small {
+    display: block;
+
+    font-size:
+        clamp(12px, 1.8vw, 20px);
+}
+
+
+.favorite-text strong {
+    display: block;
+
+    font-size:
+        clamp(32px, 5vw, 58px);
+
+    line-height: .7;
+}
+
+
+.favorite-text em {
+    display: block;
+
+    font-size:
+        clamp(20px, 3vw, 38px);
+}
+
+
+/* ==========================================
+   BOTTOM RIGHT
+========================================== */
+
+.bottom-right {
+    position: fixed;
+
+    right: 2%;
+    bottom: -20px;
+
+    z-index: 3;
+
+    width: min(30vw, 300px);
+    height: min(25vw, 250px);
+}
+
+
+.fingerprint-heart {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    color: #b31239;
+
+    font-size: clamp(70px, 11vw, 125px);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    transform:
+        rotate(-15deg)
+        scaleX(1.2);
+
+    text-shadow:
+        2px 0 #b31239;
+}
+
+
+.flower {
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+
+    font-size:
+        clamp(80px, 13vw, 145px);
+
+    transform: rotate(-18deg);
+
+    filter:
+        saturate(.8)
+        contrast(1.05);
+}
+
+
+/* ==========================================
+   MUSIC BUTTON
+========================================== */
+
+#musicButton {
+    position: fixed;
+
+    top: 22px;
+    right: 20px;
+
+    z-index: 20;
+
+    border: 1px solid
+        rgba(190, 20, 60, .18);
+
+    border-radius: 30px;
+
+    padding: 10px 16px;
+
+    background:
+        rgba(255, 250, 245, .75);
+
+    backdrop-filter: blur(10px);
+
+    color: #c31847;
+
+    font-size: 19px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 25px
+        rgba(150, 20, 50, .12);
+
+    transition: .3s;
+}
+
+
+#musicButton span {
+    margin-left: 5px;
+
+    font-size: 12px;
+}
+
+
+#musicButton:active {
+    transform: scale(.92);
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+    .heart-section {
+
+        width: 96vw;
+        height: 96vw;
+
+        top: 48%;
+    }
+
+
+    #heartMessage {
+
+        width: 45%;
+    }
+
+
+    #heartMessage span:first-child {
+
+        font-size: 23px;
+    }
+
+
+    #heartMessage span:nth-child(2) {
+
+        font-size: 34px;
+    }
+
+
+    .bottom-collage {
+
+        width: 55vw;
+        height: 32vw;
+    }
+
+
+    .bottom-right {
+
+        width: 35vw;
+        height: 30vw;
+    }
+
+
+    .drawn-heart {
+
+        font-size: 90px;
+    }
+
+
+    #musicButton {
+
+        top: 15px;
+        right: 12px;
+
+        padding: 9px 12px;
+    }
+
+
+    #musicButton span {
+
+        display: none;
+    }
+
+}
