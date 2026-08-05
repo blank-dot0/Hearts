@@ -1,77 +1,111 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Princess ❤️</title>
 
-<title>My Princess ❤️</title>
+    <link rel="stylesheet" href="css/heart.css">
 
-
-<link rel="stylesheet" href="css/heart.css">
-
-
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
 </head>
-
 
 <body>
 
-
-<div id="heartBackground"></div>
-
-
-<canvas id="heartCanvas"></canvas>
+    <!-- Paper texture -->
+    <div class="paper-texture"></div>
 
 
+    <!-- Decorative top-right heart -->
+    <div class="top-decoration">
+        <div class="drawn-heart">♡</div>
+        <div class="small-heart">♥</div>
+    </div>
 
-<canvas id="textCanvas"></canvas>
 
-<div id="message">
-    Hi My Princess 🩷
-</div>
+    <!-- Side hearts -->
+    <div class="side-hearts">
+        <span>♥</span>
+        <span>♥</span>
+        <span>♥</span>
+        <span>♥</span>
+        <span>♥</span>
+    </div>
 
 
-<button id="soundToggle">
-🔊
-</button>
+    <!-- Floating background hearts -->
+    <div id="floatingHearts"></div>
+
+
+    <!-- Sparkles -->
+    <div id="sparkles"></div>
+
+
+    <!-- MAIN HEART -->
+    <main class="heart-section">
+
+        <canvas id="heartCanvas"></canvas>
+
+        <div id="heartMessage">
+            <span>Hi My</span>
+            <span>Princess</span>
+            <span class="message-heart">♥</span>
+        </div>
+
+        <div class="heart-shadow"></div>
+
+    </main>
+
+
+    <!-- Bottom left collage -->
+    <div class="bottom-collage">
+
+        <div class="newspaper"></div>
+
+        <div class="favorite-text">
+            <small>you are my</small>
+            <strong>favorite</strong>
+            <em>person</em>
+        </div>
+
+    </div>
+
+
+    <!-- Bottom right decoration -->
+    <div class="bottom-right">
+
+        <div class="fingerprint-heart">
+            ♡
+        </div>
+
+        <div class="flower">
+            🌺
+        </div>
+
+    </div>
+
+
+    <!-- Music -->
     <audio id="bgMusic" loop>
+        <source src="assets/audio/love.mp3" type="audio/mpeg">
+    </audio>
 
-<source src="assets/audio/love.mp3" type="audio/mpeg">
-
-</audio>
-
-
-<button id="musicButton">
-🎵
-</button>
+    <button id="musicButton" aria-label="Play music">
+        ♪
+        <span>Music</span>
+    </button>
 
 
-<div id="sky"></div>
+    <script src="js/heart.js"></script>
 
-<div id="magicDust"></div>
-
-<script src="js/sparkles.js"></script>
-
-<script src="js/petals.js"></script>
-
-<script src="js/sky.js"></script>
-
-<script src="js/magicDust.js"></script>
-
-<script src="js/interaction.js"></script>
-
-<script src="js/audio.js"></script>
-
-<script src="js/textParticles.js"></script>
-
-<script src="js/heart.js"></script>
-    
 </body>
-
 </html>
