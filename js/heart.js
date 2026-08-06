@@ -1,6 +1,6 @@
-// ==========================================
-// ROMANTIC PARTICLE HEART
-// ==========================================
+// =============================================
+// ROMANTIC 3D PARTICLE HEART
+// =============================================
 
 const canvas =
     document.getElementById("heartCanvas");
@@ -12,40 +12,65 @@ const ctx =
 let width;
 let height;
 
+let dpr = 1;
+
 let particles = [];
 
-let startTime =
+let animationStart =
     performance.now();
 
-// No heart rotation
-const rotation = 0;
 
-let formationComplete = false;
+// Animation timings
+
+const FORM_DURATION = 2400;
+
+const ROTATION_DURATION = 2200;
+
+const MESSAGE_DELAY = 300;
 
 
-// ==========================================
+// Rotation state
+
+let rotationCompleted = false;
+
+let messageShown = false;
+
+
+// =============================================
 // CANVAS SIZE
-// ==========================================
+// =============================================
 
 function resizeCanvas() {
 
-    const rect =
-        canvas.getBoundingClientRect();
+    width =
+        window.innerWidth;
 
-    const dpr =
+    height =
+        window.innerHeight;
+
+
+    // Prevent huge high-DPI canvases
+
+    dpr =
         Math.min(
             window.devicePixelRatio || 1,
             1.5
         );
 
-    width = rect.width;
-    height = rect.height;
 
     canvas.width =
         Math.floor(width * dpr);
 
     canvas.height =
         Math.floor(height * dpr);
+
+
+    canvas.style.width =
+        width + "px";
+
+    canvas.style.height =
+        height + "px";
+
 
     ctx.setTransform(
         dpr,
@@ -55,12 +80,41 @@ function resizeCanvas() {
         0,
         0
     );
+
 }
 
 
-// ==========================================
+resizeCanvas();
+
+
+// =============================================
+// PARTICLE COUNT
+// =============================================
+
+function getParticleCount() {
+
+    if (width < 480) {
+
+        return 1100;
+
+    }
+
+
+    if (width < 800) {
+
+        return 1600;
+
+    }
+
+
+    return 2400;
+
+}
+
+
+// =============================================
 // HEART EQUATION
-// ==========================================
+// =============================================
 
 function heartPoint(t) {
 
@@ -71,35 +125,48 @@ function heartPoint(t) {
             3
         );
 
+
     const y =
+
         13 * Math.cos(t)
+
         - 5 * Math.cos(2 * t)
+
         - 2 * Math.cos(3 * t)
+
         - Math.cos(4 * t);
 
-    return { x, y };
+
+    return {
+
+        x,
+
+        y
+
+    };
+
 }
 
 
-// ==========================================
-// PARTICLES
-// ==========================================
+// =============================================
+// CREATE PARTICLES
+// =============================================
 
 function createParticles() {
 
     particles = [];
 
-    const mobile =
-        window.innerWidth < 600;
 
     const count =
-        mobile ? 1500 : 2600;
+        getParticleCount();
 
-    const scale =
+
+    const heartScale =
+
         Math.min(
-            width,
-            height
-        ) / 40;
+            width / 38,
+            height / 38
+        );
 
 
     for (
@@ -109,42 +176,57 @@ function createParticles() {
     ) {
 
         const t =
-            Math.random()
-            * Math.PI
-            * 2;
+            Math.random() *
+            Math.PI *
+            2;
 
-        const heart =
+
+        const point =
             heartPoint(t);
 
 
-        // Makes the heart thicker
-        const thickness =
-            (Math.random() - 0.5)
-            * scale
-            * 2.2;
+        // Thickness/depth
+
+        const depth =
+
+            (
+                Math.random() -
+                0.5
+            ) *
+            heartScale *
+            5;
+
+
+        // Slight variation makes it organic
+
+        const jitter =
+
+            0.90 +
+            Math.random() *
+            0.10;
 
 
         const targetX =
-            heart.x * scale
-            + thickness;
+
+            point.x *
+            heartScale *
+            jitter;
 
 
         const targetY =
-            -heart.y * scale
-            + thickness;
+
+            -point.y *
+            heartScale *
+            jitter;
 
 
-        const targetZ =
-            (Math.random() - 0.5)
-            * scale
-            * 5;
+        // Start from outside/edges
 
-
-        // Start particles around/outside canvas
         const side =
             Math.floor(
                 Math.random() * 4
             );
+
 
         let startX;
         let startY;
@@ -153,80 +235,146 @@ function createParticles() {
         if (side === 0) {
 
             startX =
-                Math.random() * width;
+                -Math.random() *
+                width *
+                0.25;
 
-            startY = -50;
+            startY =
+                Math.random() *
+                height;
 
-        } else if (side === 1) {
+        }
+
+        else if (side === 1) {
 
             startX =
-                width + 50;
+                width +
+                Math.random() *
+                width *
+                0.25;
 
             startY =
-                Math.random() * height;
+                Math.random() *
+                height;
 
-        } else if (side === 2) {
+        }
+
+        else if (side === 2) {
 
             startX =
-                Math.random() * width;
+                Math.random() *
+                width;
 
             startY =
-                height + 50;
+                -Math.random() *
+                height *
+                0.2;
 
-        } else {
+        }
 
-            startX = -50;
+        else {
+
+            startX =
+                Math.random() *
+                width;
 
             startY =
-                Math.random() * height;
+                height +
+                Math.random() *
+                height *
+                0.2;
+
         }
 
 
         particles.push({
 
+            startX,
+            startY,
+
             x:
-                startX
-                - width / 2,
+                startX,
 
             y:
-                startY
-                - height / 2,
+                startY,
+
+            hx:
+                targetX,
+
+            hy:
+                targetY,
 
             z:
-                (
-                    Math.random()
-                    - 0.5
-                ) * 200,
-
-            tx: targetX,
-
-            ty: targetY,
-
-            tz: targetZ,
+                depth,
 
             size:
-                mobile
-                    ? Math.random() * 1.5 + 0.7
-                    : Math.random() * 1.8 + 0.8,
 
-            speed:
-                0.055
-                + Math.random() * 0.045,
+                0.7 +
+                Math.random() *
+                1.7,
 
             alpha:
-                0.55
-                + Math.random() * 0.45
+
+                0.55 +
+                Math.random() *
+                0.45
 
         });
+
     }
+
 }
 
 
-// ==========================================
-// DRAW
-// ==========================================
+createParticles();
 
-function animate(time) {
+
+// =============================================
+// EASING
+// =============================================
+
+function easeOutCubic(x) {
+
+    return (
+        1 -
+        Math.pow(
+            1 - x,
+            3
+        )
+    );
+
+}
+
+
+function easeInOutCubic(x) {
+
+    return (
+
+        x < 0.5
+
+        ?
+
+        4 * x * x * x
+
+        :
+
+        1 -
+
+        Math.pow(
+            -2 * x + 2,
+            3
+        ) / 2
+
+    );
+
+}
+
+
+// =============================================
+// DRAW
+// =============================================
+
+function animate(now) {
 
     ctx.clearRect(
         0,
@@ -237,212 +385,337 @@ function animate(time) {
 
 
     const elapsed =
-        time - startTime;
+        now -
+        animationStart;
 
 
-    // Formation
-    particles.forEach(p => {
+    // Heart formation progress
 
-        p.x +=
-            (p.tx - p.x)
-            * p.speed;
+    const formationProgress =
 
-        p.y +=
-            (p.ty - p.y)
-            * p.speed;
-
-        p.z +=
-            (p.tz - p.z)
-            * p.speed;
-
-    });
-    
-// Heart stays still after forming
-formationComplete = elapsed > 2400;
-
-// Gentle heartbeat after heart forms
-let pulse = 1;
-
-if (formationComplete) {
-
-    pulse =
-        1
-        + Math.sin(
-            elapsed * 0.005
-        ) * 0.025;
-}
+        Math.min(
+            elapsed /
+            FORM_DURATION,
+            1
+        );
 
 
-    particles.forEach(p => {
+    const formationEase =
+        easeOutCubic(
+            formationProgress
+        );
 
-// No rotation - keep original depth
-const rotatedX = p.x;
-const rotatedZ = p.z;
 
+    // Rotation begins only after formation
+
+    let rotation = 0;
+
+
+    if (
+        elapsed >
+        FORM_DURATION
+    ) {
+
+        const rotationProgress =
+
+            Math.min(
+
+                (
+                    elapsed -
+                    FORM_DURATION
+                )
+                /
+                ROTATION_DURATION,
+
+                1
+
+            );
+
+
+        rotation =
+
+            Math.PI *
+            2 *
+            easeInOutCubic(
+                rotationProgress
+            );
+
+
+        if (
+            rotationProgress >= 1
+        ) {
+
+            rotationCompleted =
+                true;
+
+            rotation = 0;
+
+        }
+
+    }
+
+
+    // Heartbeat only after rotation
+
+    let pulse = 1;
+
+
+    if (rotationCompleted) {
+
+        const pulseTime =
+
+            (
+                elapsed -
+                FORM_DURATION -
+                ROTATION_DURATION
+            ) / 1000;
+
+
+        pulse =
+
+            1 +
+
+            Math.pow(
+                Math.max(
+                    0,
+                    Math.sin(
+                        pulseTime *
+                        Math.PI *
+                        1.4
+                    )
+                ),
+                7
+            ) * 0.035;
+
+    }
+
+
+    const cos =
+        Math.cos(rotation);
+
+    const sin =
+        Math.sin(rotation);
+
+
+    const centerX =
+        width / 2;
+
+    const centerY =
+        height * 0.46;
+
+
+    for (
+        let i = 0;
+        i < particles.length;
+        i++
+    ) {
+
+        const p =
+            particles[i];
+
+
+        // Formation
+
+        const formedX =
+
+            p.startX +
+
+            (
+                centerX +
+                p.hx -
+                p.startX
+            )
+            *
+            formationEase;
+
+
+        const formedY =
+
+            p.startY +
+
+            (
+                centerY +
+                p.hy -
+                p.startY
+            )
+            *
+            formationEase;
+
+
+        // Local coordinates
+
+        const localX =
+
+            formedX -
+            centerX;
+
+
+        const localY =
+
+            formedY -
+            centerY;
+
+
+        // Y-axis 3D rotation
+
+        const rotatedX =
+
+            localX *
+            cos
+
+            -
+
+            p.z *
+            sin;
+
+
+        const rotatedZ =
+
+            localX *
+            sin
+
+            +
+
+            p.z *
+            cos;
+
+
+        // Perspective
 
         const perspective =
+
             650 /
-            (650 + rotatedZ);
+            (
+                650 +
+                rotatedZ
+            );
 
 
-        const screenX =
-            width / 2
-            + rotatedX
-            * perspective
-            * pulse;
+        const drawX =
+
+            centerX +
+
+            rotatedX *
+            perspective *
+            pulse;
 
 
-        const screenY =
-            height / 2
-            + p.y
-            * perspective
-            * pulse;
+        const drawY =
+
+            centerY +
+
+            localY *
+            perspective *
+            pulse;
 
 
-        const size =
+        const particleSize =
+
             Math.max(
-                0.5,
-                p.size * perspective
+                0.55,
+
+                p.size *
+                perspective
             );
 
 
         ctx.beginPath();
 
+
         ctx.arc(
-            screenX,
-            screenY,
-            size,
+
+            drawX,
+
+            drawY,
+
+            particleSize,
+
             0,
+
             Math.PI * 2
+
         );
 
 
-        const depthLight =
+        // Depth changes brightness
+
+        const lightness =
+
             Math.max(
-                0,
+                38,
+
                 Math.min(
-                    1,
-                    (perspective - 0.75)
-                    * 2
+                    63,
+
+                    52 -
+                    rotatedZ *
+                    0.05
                 )
             );
 
 
         ctx.fillStyle =
-            `rgba(
-                ${190 + depthLight * 45},
-                ${20 + depthLight * 35},
-                ${60 + depthLight * 45},
+
+            `hsla(
+                343,
+                78%,
+                ${lightness}%,
                 ${p.alpha}
             )`;
 
 
         ctx.fill();
-    });
+
+    }
+
+
+    // Message
+
+    if (
+        !messageShown &&
+
+        elapsed >
+
+        FORM_DURATION +
+        ROTATION_DURATION +
+        MESSAGE_DELAY
+    ) {
+
+        messageShown =
+            true;
+
+
+        const message =
+
+            document.getElementById(
+                "message"
+            );
+
+
+        message.classList.add(
+            "show"
+        );
+
+    }
 
 
     requestAnimationFrame(
         animate
     );
+
 }
 
 
-// ==========================================
-// MESSAGE
-// ==========================================
-
-setTimeout(() => {
-
-    const message =
-        document.getElementById(
-            "heartMessage"
-        );
-
-    if (message) {
-
-        message.classList.add(
-            "show"
-        );
-    }
-
-}, 2800);
-
-
-// ==========================================
-// FLOATING HEARTS
-// ==========================================
-
-const floatingBox =
-    document.getElementById(
-        "floatingHearts"
-    );
-
-
-function createFloatingHeart() {
-
-    const heart =
-        document.createElement(
-            "span"
-        );
-
-    heart.className =
-        "floating-heart";
-
-    heart.textContent =
-        Math.random() > 0.5
-            ? "♥"
-            : "♡";
-
-
-    heart.style.left =
-        Math.random() * 90
-        + "%";
-
-
-    heart.style.bottom =
-        "-30px";
-
-
-    heart.style.fontSize =
-        (
-            Math.random() * 13
-            + 9
-        ) + "px";
-
-
-    const duration =
-        Math.random() * 4
-        + 7;
-
-
-    heart.style.animationDuration =
-        duration + "s";
-
-
-    floatingBox.appendChild(
-        heart
-    );
-
-
-    setTimeout(() => {
-
-        heart.remove();
-
-    }, duration * 1000);
-}
-
-
-setInterval(
-    createFloatingHeart,
-    850
+requestAnimationFrame(
+    animate
 );
 
 
-// ==========================================
+// =============================================
 // SPARKLES
-// ==========================================
+// =============================================
 
-const sparkleBox =
+const sparkleContainer =
     document.getElementById(
         "sparkles"
     );
@@ -452,50 +725,74 @@ function createSparkle() {
 
     const sparkle =
         document.createElement(
-            "span"
+            "div"
         );
+
 
     sparkle.className =
         "sparkle";
 
 
     sparkle.style.left =
-        Math.random() * 100
-        + "%";
+
+        (
+            8 +
+            Math.random() *
+            84
+        ) + "%";
 
 
     sparkle.style.top =
-        Math.random() * 100
-        + "%";
+
+        (
+            8 +
+            Math.random() *
+            76
+        ) + "%";
 
 
-    sparkleBox.appendChild(
+    const size =
+
+        2 +
+        Math.random() *
+        4;
+
+
+    sparkle.style.width =
+        size + "px";
+
+    sparkle.style.height =
+        size + "px";
+
+
+    sparkleContainer.appendChild(
         sparkle
     );
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => sparkle.remove(),
+        2000
+    );
 
-        sparkle.remove();
-
-    }, 3000);
 }
 
 
 setInterval(
     createSparkle,
-    500
+    450
 );
 
 
-// ==========================================
+// =============================================
 // MUSIC
-// ==========================================
+// =============================================
 
 const music =
     document.getElementById(
         "bgMusic"
     );
+
 
 const musicButton =
     document.getElementById(
@@ -508,119 +805,104 @@ let musicPlaying =
 
 
 music.volume =
-    0.35;
+    0.32;
 
 
 musicButton.addEventListener(
     "click",
+
     async () => {
 
-        if (!musicPlaying) {
+        try {
 
-            try {
+            if (
+                musicPlaying
+            ) {
+
+                music.pause();
+
+                musicPlaying =
+                    false;
+
+                musicButton.textContent =
+                    "♫";
+
+            }
+
+            else {
 
                 await music.play();
 
                 musicPlaying =
                     true;
 
-                musicButton.innerHTML =
-                    '♫ <span>Playing</span>';
+                musicButton.textContent =
+                    "❚❚";
 
-            } catch (error) {
-
-                console.log(
-                    "Music could not play:",
-                    error
-                );
             }
 
-        } else {
-
-            music.pause();
-
-            musicPlaying =
-                false;
-
-            musicButton.innerHTML =
-                '♪ <span>Music</span>';
         }
+
+        catch (error) {
+
+            console.log(
+                "Music playback requires user interaction."
+            );
+
+        }
+
     }
 );
 
 
-// ==========================================
-// START
-// ==========================================
-
-resizeCanvas();
-
-createParticles();
-
-requestAnimationFrame(
-    animate
-);
-
-
-// ==========================================
-// RESPONSIVE RESIZE
-// ==========================================
+// =============================================
+// RESIZE
+// =============================================
 
 let resizeTimer;
 
+
 window.addEventListener(
     "resize",
+
     () => {
 
         clearTimeout(
             resizeTimer
         );
 
-        resizeTimer =
-            setTimeout(() => {
-
-                resizeCanvas();
-
-                createParticles();
-
-                startTime =
-                    performance.now();
-
-                rotation = 0;
-
-            }, 200);
-    }
-);
-// ==========================================
-// RESPONSIVE RESIZE
-// ==========================================
-
-let resizeTimer;
-
-window.addEventListener(
-    "resize",
-    () => {
-
-        clearTimeout(
-            resizeTimer
-        );
 
         resizeTimer =
-            setTimeout(() => {
+            setTimeout(
+                () => {
 
-                resizeCanvas();
+                    resizeCanvas();
 
-                createParticles();
+                    createParticles();
 
-                startTime =
-                    performance.now();
+                    animationStart =
+                        performance.now();
 
-            }, 200);
+                    rotationCompleted =
+                        false;
+
+                    messageShown =
+                        false;
+
+
+                    document
+                        .getElementById(
+                            "message"
+                        )
+                        .classList
+                        .remove(
+                            "show"
+                        );
+
+                },
+
+                200
+            );
+
     }
 );
-
-// ==========================================
-// ROMANTIC PETAL RAIN
-// ==========================================
-
-// Paste the entire petal code here
