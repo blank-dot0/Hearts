@@ -591,3 +591,36 @@ window.addEventListener(
             }, 200);
     }
 );
+// ==========================================
+// RESPONSIVE RESIZE
+// ==========================================
+
+let resizeTimer;
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        clearTimeout(
+            resizeTimer
+        );
+
+        resizeTimer =
+            setTimeout(() => {
+
+                resizeCanvas();
+
+                createParticles();
+
+                startTime =
+                    performance.now();
+
+            }, 200);
+    }
+);
+
+// ==========================================
+// ROMANTIC PETAL RAIN
+// ==========================================
+
+// Paste the entire petal code here
