@@ -1,7 +1,3 @@
-/* ==========================================
-   BASIC RESET
-========================================== */
-
 * {
     margin: 0;
     padding: 0;
@@ -15,872 +11,672 @@ body {
 }
 
 body {
-    min-height: 100svh;
+
+    width: 100%;
+    height: 100svh;
+
     overflow: hidden;
+
     position: relative;
 
-    font-family: "Poppins", sans-serif;
-
     background:
-        radial-gradient(
-            circle at 50% 45%,
-            #fffaf5 0%,
-            #f8f0e8 55%,
-            #eee2d7 100%
+        linear-gradient(
+            145deg,
+            #fffaf3,
+            #fff6ee,
+            #fffaf5
         );
 
-    color: #a91235;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 }
 
 
-/* ==========================================
+/* ===============================
    PAPER TEXTURE
-========================================== */
+================================ */
 
 .paper-texture {
+
     position: fixed;
+
     inset: 0;
+
     pointer-events: none;
+
     z-index: 0;
 
-    opacity: 0.45;
+    opacity: 0.35;
 
     background-image:
+
         repeating-radial-gradient(
-            circle at 0 0,
-            rgba(120, 70, 55, 0.035) 0,
-            rgba(120, 70, 55, 0.035) 1px,
+            circle at 30% 20%,
+            rgba(120, 80, 60, 0.035) 0px,
+            rgba(120, 80, 60, 0.035) 1px,
             transparent 1px,
             transparent 4px
         );
+
 }
 
 
-/* ==========================================
-   CENTRAL HEART AREA
-========================================== */
+/* ===============================
+   BACKGROUND GLOW
+================================ */
 
-.heart-section {
+.background-glow {
+
     position: fixed;
+
+    width: min(700px, 100vw);
+    height: min(700px, 100vw);
 
     left: 50%;
     top: 48%;
 
-    transform: translate(-50%, -50%);
+    transform:
+        translate(-50%, -50%);
 
-    width: min(78vw, 760px);
-    height: min(78vw, 760px);
+    border-radius: 50%;
 
-    z-index: 5;
+    background:
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+        radial-gradient(
+            circle,
+            rgba(255, 91, 135, 0.13),
+            rgba(255, 130, 160, 0.05) 40%,
+            transparent 70%
+        );
+
+    filter: blur(10px);
+
+    animation:
+        glowBreath 4s ease-in-out infinite;
+
 }
 
 
+@keyframes glowBreath {
+
+    0%,
+    100% {
+
+        transform:
+            translate(-50%, -50%)
+            scale(0.95);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-50%, -50%)
+            scale(1.08);
+
+    }
+
+}
+
+
+/* ===============================
+   HEART CANVAS
+================================ */
+
 #heartCanvas {
-    position: absolute;
+
+    position: fixed;
 
     inset: 0;
 
     width: 100%;
     height: 100%;
 
-    z-index: 2;
+    z-index: 3;
+
+    pointer-events: none;
+
 }
 
 
-/* ==========================================
+/* ===============================
    MESSAGE
-========================================== */
+================================ */
 
-#heartMessage {
-    position: absolute;
+#message {
+
+    position: fixed;
+
+    z-index: 5;
 
     left: 50%;
-    top: 50%;
+    top: 48%;
 
     transform:
-        translate(-50%, -45%)
-        scale(0.7);
+        translate(-50%, -50%)
+        scale(0.65);
 
-    width: 55%;
+    width: min(300px, 62vw);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
 
     text-align: center;
 
-    z-index: 4;
+    color: #c81d4f;
 
-    pointer-events: none;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(20px, 4.5vw, 38px);
+
+    font-weight: 700;
+
+    line-height: 1.12;
+
+    letter-spacing: 1px;
 
     opacity: 0;
 
-    font-family:
-        "Cormorant Garamond",
-        serif;
+    pointer-events: none;
 
-    color: #c21846;
-
-    text-shadow:
-        0 2px 3px rgba(255,255,255,.8),
-        0 0 15px rgba(210, 35, 85, .25);
-
-    transition:
-        opacity 1.4s ease,
-        transform 1.4s ease;
 }
 
 
-#heartMessage.show {
-    opacity: 1;
+#message.show {
 
-    transform:
-        translate(-50%, -45%)
-        scale(1);
+    animation:
+        messageAppear
+        1.8s
+        cubic-bezier(.2,.8,.2,1)
+        forwards;
+
 }
 
 
-#heartMessage span {
-    display: block;
-}
+@keyframes messageAppear {
 
+    0% {
 
-#heartMessage span:first-child {
-    font-size: clamp(25px, 4vw, 46px);
-}
+        opacity: 0;
 
+        filter: blur(10px);
 
-#heartMessage span:nth-child(2) {
-    font-size: clamp(35px, 6vw, 68px);
-    font-weight: 700;
+        transform:
+            translate(-50%, -50%)
+            scale(0.65);
 
-    line-height: 0.9;
-}
-
-
-#heartMessage .message-heart {
-    font-size: clamp(24px, 4vw, 42px);
-
-    margin-top: 10px;
-
-    animation: messageHeartbeat 1.4s infinite;
-}
-
-
-@keyframes messageHeartbeat {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    20% {
-        transform: scale(1.22);
-    }
-
-    40% {
-        transform: scale(1);
     }
 
     60% {
-        transform: scale(1.12);
-    }
-}
 
+        opacity: 1;
 
-/* ==========================================
-   HEART SHADOW
-========================================== */
+        filter: blur(0);
 
-.heart-shadow {
-    position: absolute;
-
-    bottom: 12%;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    width: 45%;
-    height: 20px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(165, 25, 55, .18);
-
-    filter: blur(13px);
-
-    z-index: 1;
-
-    animation:
-        shadowPulse 1.7s ease-in-out infinite;
-}
-
-
-@keyframes shadowPulse {
-
-    50% {
-        width: 38%;
-        opacity: .6;
-    }
-}
-
-
-/* ==========================================
-   TOP RIGHT DECORATION
-========================================== */
-
-.top-decoration {
-    position: fixed;
-
-    top: 10px;
-    right: 6%;
-
-    z-index: 3;
-
-    color: #c71540;
-
-    transform: rotate(-8deg);
-}
-
-
-.drawn-heart {
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: clamp(85px, 13vw, 150px);
-
-    line-height: .7;
-
-    font-weight: 700;
-}
-
-
-.small-heart {
-    position: absolute;
-
-    right: -5px;
-    bottom: -20px;
-
-    font-size: 30px;
-
-    animation:
-        smallHeartBeat 1.5s infinite;
-}
-
-
-@keyframes smallHeartBeat {
-
-    50% {
-        transform: scale(1.25);
-    }
-}
-
-
-/* ==========================================
-   RIGHT SIDE HEARTS
-========================================== */
-
-.side-hearts {
-    position: fixed;
-
-    right: 3%;
-
-    top: 18%;
-
-    height: 62%;
-
-    z-index: 2;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
-    color: #b71132;
-}
-
-
-.side-hearts span {
-    font-size: clamp(15px, 2.5vw, 25px);
-
-    animation:
-        sideHeart 2.5s ease-in-out infinite;
-}
-
-
-.side-hearts span:nth-child(2) {
-    animation-delay: .3s;
-}
-
-.side-hearts span:nth-child(3) {
-    animation-delay: .7s;
-}
-
-.side-hearts span:nth-child(4) {
-    animation-delay: 1s;
-}
-
-.side-hearts span:nth-child(5) {
-    animation-delay: 1.3s;
-}
-
-
-@keyframes sideHeart {
-
-    50% {
         transform:
-            translateX(-8px)
-            scale(1.15);
-    }
-}
+            translate(-50%, -50%)
+            scale(1.06);
 
-
-/* ==========================================
-   FLOATING HEARTS
-========================================== */
-
-.floating-heart {
-    position: fixed;
-
-    z-index: 1;
-
-    color: rgba(190, 20, 55, .55);
-
-    pointer-events: none;
-
-    animation:
-        floatingHeartMove linear forwards;
-}
-
-
-@keyframes floatingHeartMove {
-
-    0% {
-        transform:
-            translateY(20px)
-            rotate(0deg);
-
-        opacity: 0;
-    }
-
-    20% {
-        opacity: .7;
     }
 
     100% {
-        transform:
-            translateY(-120vh)
-            rotate(360deg);
 
-        opacity: 0;
+        opacity: 1;
+
+        filter: blur(0);
+
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+
     }
+
 }
 
 
-/* ==========================================
+/* ===============================
+   DECORATIVE HEARTS
+================================ */
+
+.edge-decoration {
+
+    position: fixed;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.edge-decoration span {
+
+    color: #c9153e;
+
+    text-shadow:
+
+        0 2px 3px
+        rgba(120, 0, 30, 0.15);
+
+}
+
+
+.right-decoration {
+
+    right: 4%;
+
+    top: 12%;
+
+    gap: 7vh;
+
+}
+
+
+.right-decoration span:nth-child(1) {
+
+    font-size: 22px;
+
+}
+
+
+.right-decoration span:nth-child(2) {
+
+    font-size: 28px;
+
+}
+
+
+.right-decoration span:nth-child(3) {
+
+    font-size: 20px;
+
+}
+
+
+.right-decoration span:nth-child(4) {
+
+    font-size: 30px;
+
+}
+
+
+.right-decoration span:nth-child(5) {
+
+    font-size: 22px;
+
+}
+
+
+.left-decoration {
+
+    left: 4%;
+
+    bottom: 13%;
+
+    gap: 5vh;
+
+}
+
+
+.left-decoration span {
+
+    font-size: 25px;
+
+}
+
+
+/* ===============================
+   TOP HEART DOODLE
+================================ */
+
+.corner-love {
+
+    position: fixed;
+
+    z-index: 2;
+
+    top: 1%;
+
+    right: 8%;
+
+    color: #d51c4d;
+
+    font-size:
+        clamp(80px, 16vw, 150px);
+
+    line-height: 1;
+
+    transform:
+        rotate(-14deg);
+
+    font-family:
+        cursive;
+
+    pointer-events: none;
+
+}
+
+
+/* ===============================
    SPARKLES
-========================================== */
+================================ */
 
 .sparkle {
+
     position: fixed;
+
+    z-index: 4;
 
     width: 4px;
     height: 4px;
 
     border-radius: 50%;
 
-    background: #e83b68;
+    background: #ff7199;
 
     box-shadow:
-        0 0 6px #ff7197,
-        0 0 14px #ff7197;
+
+        0 0 7px #ff7199,
+        0 0 14px #ffc0d1;
 
     pointer-events: none;
 
-    z-index: 4;
-
     animation:
-        sparkleAnimation 3s ease-in-out forwards;
+        sparkleAnimation
+        2s ease-out forwards;
+
 }
 
 
 @keyframes sparkleAnimation {
 
     0% {
+
         opacity: 0;
-        transform: scale(.2);
+
+        transform:
+            scale(0.2);
+
     }
 
     40% {
+
         opacity: 1;
-        transform: scale(1.5);
+
+        transform:
+            scale(1.5);
+
     }
 
     100% {
+
         opacity: 0;
-        transform: translateY(-50px);
+
+        transform:
+            translateY(-25px)
+            scale(0);
+
     }
+
 }
 
 
-/* ==========================================
-   BOTTOM LEFT COLLAGE
-========================================== */
+/* ===============================
+   FAVORITE PERSON COLLAGE
+================================ */
 
-.bottom-collage {
+.bottom-left-decoration {
+
     position: fixed;
 
-    left: -30px;
-    bottom: -40px;
+    z-index: 2;
 
-    width: min(45vw, 430px);
-    height: min(27vw, 270px);
+    left: 0;
+    bottom: 0;
 
-    z-index: 3;
+    width:
+        clamp(190px, 34vw, 370px);
 
-    transform: rotate(2deg);
-}
+    min-height: 155px;
 
+    padding:
 
-.newspaper {
-    position: absolute;
-    inset: 0;
+        42px
+        30px
+        22px
+        22px;
+
+    color: #201b18;
+
+    transform:
+        rotate(-3deg);
 
     background:
+
         repeating-linear-gradient(
             0deg,
-            rgba(85, 45, 35, .16) 0px,
-            rgba(85, 45, 35, .16) 1px,
-            transparent 1px,
-            transparent 5px
-        ),
-        #d8b49d;
+            rgba(176, 89, 71, 0.15),
+            rgba(176, 89, 71, 0.15) 2px,
+            rgba(239, 211, 189, 0.68) 2px,
+            rgba(239, 211, 189, 0.68) 6px
+        );
 
     clip-path:
+
         polygon(
-            0 20%,
-            18% 8%,
-            36% 18%,
-            55% 5%,
-            74% 17%,
-            100% 7%,
+            0 15%,
+            10% 10%,
+            20% 16%,
+            31% 7%,
+            44% 14%,
+            56% 6%,
+            68% 15%,
+            81% 9%,
+            100% 20%,
             100% 100%,
             0 100%
         );
 
-    opacity: .75;
 }
 
 
-.favorite-text {
-    position: absolute;
+.favorite-small {
 
-    left: 32%;
-    top: 35%;
+    font-size: 14px;
 
-    color: #191311;
+}
 
-    transform: rotate(-5deg);
+
+.favorite-big {
+
+    font-size:
+        clamp(32px, 6vw, 60px);
+
+    line-height: .9;
+
+}
+
+
+.favorite-script {
+
+    font-size:
+        clamp(23px, 4vw, 38px);
+
+    font-style: italic;
 
     text-align: center;
 
-    font-family:
-        "Cormorant Garamond",
-        serif;
 }
 
 
-.favorite-text small {
-    display: block;
-
-    font-size:
-        clamp(12px, 1.8vw, 20px);
-}
-
-
-.favorite-text strong {
-    display: block;
-
-    font-size:
-        clamp(32px, 5vw, 58px);
-
-    line-height: .7;
-}
-
-
-.favorite-text em {
-    display: block;
-
-    font-size:
-        clamp(20px, 3vw, 38px);
-}
-
-
-/* ==========================================
-   BOTTOM RIGHT
-========================================== */
-
-.bottom-right {
-    position: fixed;
-
-    right: 2%;
-    bottom: -20px;
-
-    z-index: 3;
-
-    width: min(30vw, 300px);
-    height: min(25vw, 250px);
-}
-
+/* ===============================
+   FINGERPRINT HEART
+================================ */
 
 .fingerprint-heart {
-    position: absolute;
 
-    top: 0;
-    left: 0;
-
-    color: #b31239;
-
-    font-size: clamp(70px, 11vw, 125px);
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    transform:
-        rotate(-15deg)
-        scaleX(1.2);
-
-    text-shadow:
-        2px 0 #b31239;
-}
-
-
-.flower {
-    position: absolute;
-
-    right: 0;
-    bottom: 0;
-
-    font-size:
-        clamp(80px, 13vw, 145px);
-
-    transform: rotate(-18deg);
-
-    filter:
-        saturate(.8)
-        contrast(1.05);
-}
-
-
-/* ==========================================
-   MUSIC BUTTON
-========================================== */
-
-#musicButton {
     position: fixed;
 
-    top: 22px;
-    right: 20px;
+    z-index: 2;
+
+    right: 15%;
+
+    bottom: 12%;
+
+    color: #b91640;
+
+    font-size:
+        clamp(65px, 12vw, 130px);
+
+    transform:
+        rotate(8deg);
+
+    opacity: .9;
+
+}
+
+
+/* ===============================
+   FLOWER
+================================ */
+
+.flower {
+
+    position: fixed;
+
+    z-index: 2;
+
+    right: -2%;
+
+    bottom: -2%;
+
+    font-size:
+        clamp(80px, 17vw, 180px);
+
+    transform:
+        rotate(-16deg);
+
+    filter:
+        saturate(.8);
+
+}
+
+
+/* ===============================
+   MUSIC BUTTON
+================================ */
+
+#musicButton {
+
+    position: fixed;
 
     z-index: 20;
 
-    border: 1px solid
-        rgba(190, 20, 60, .18);
+    top:
+        max(18px, env(safe-area-inset-top));
 
-    border-radius: 30px;
+    right: 18px;
 
-    padding: 10px 16px;
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    border:
+
+        1px solid
+        rgba(200, 29, 79, .2);
 
     background:
-        rgba(255, 250, 245, .75);
 
-    backdrop-filter: blur(10px);
+        rgba(255, 250, 245, .82);
 
-    color: #c31847;
+    color: #c81d4f;
 
-    font-size: 19px;
+    font-size: 24px;
 
     cursor: pointer;
 
     box-shadow:
-        0 6px 25px
-        rgba(150, 20, 50, .12);
 
-    transition: .3s;
+        0 8px 25px
+        rgba(150, 20, 55, .15);
+
+    backdrop-filter:
+        blur(10px);
+
 }
 
 
-#musicButton span {
-    margin-left: 5px;
-
-    font-size: 12px;
-}
-
-
-#musicButton:active {
-    transform: scale(.92);
-}
-
-
-/* ==========================================
+/* ===============================
    MOBILE
-========================================== */
+================================ */
 
 @media (max-width: 600px) {
 
-    .heart-section {
+    #message {
 
-        width: 96vw;
-        height: 96vw;
+        width: 48vw;
 
-        top: 48%;
+        font-size:
+            clamp(18px, 5.2vw, 25px);
+
     }
 
 
-    #heartMessage {
+    .bottom-left-decoration {
 
-        width: 45%;
+        width: 47vw;
+
+        min-height: 125px;
+
+        padding:
+
+            36px
+            14px
+            12px
+            14px;
+
     }
 
 
-    #heartMessage span:first-child {
+    .fingerprint-heart {
 
-        font-size: 23px;
+        right: 17%;
+
+        bottom: 12%;
+
     }
 
 
-    #heartMessage span:nth-child(2) {
+    .flower {
 
-        font-size: 34px;
+        right: -8%;
+
+        bottom: -1%;
+
     }
 
 
-    .bottom-collage {
+    .corner-love {
 
-        width: 55vw;
-        height: 32vw;
-    }
+        right: 11%;
 
-
-    .bottom-right {
-
-        width: 35vw;
-        height: 30vw;
-    }
-
-
-    .drawn-heart {
-
-        font-size: 90px;
-    }
-
-
-    #musicButton {
-
-        top: 15px;
-        right: 12px;
-
-        padding: 9px 12px;
-    }
-
-
-    #musicButton span {
-
-        display: none;
     }
 
 }
-/* ==========================================
-   REALISTIC FALLING PETALS
-========================================== */
-
-#petalContainer{
-
-    position:fixed;
-
-    inset:0;
-
-    overflow:hidden;
-
-    pointer-events:none;
-
-    z-index:9;
-
-}
-
-.petal{
-
-    position:absolute;
-
-    top:-80px;
-
-    width:18px;
-
-    height:24px;
-
-    opacity:0;
-
-    border-radius:
-        60% 60% 60% 60% /
-        80% 80% 40% 40%;
-
-    transform-origin:center;
-
-    animation-name:petalFall;
-
-    animation-timing-function:linear;
-
-    animation-fill-mode:forwards;
-
-    box-shadow:
-        inset -2px -2px 4px rgba(255,255,255,.45),
-        0 0 8px rgba(255,120,170,.25);
-
-}
-
-/* Cherry blossom */
-
-.petal.cherry{
-
-    background:
-    radial-gradient(circle at 35% 30%,
-    #ffd8e8 0%,
-    #ffb7d2 45%,
-    #ff8eb7 100%);
-
-}
-
-/* Rose */
-
-.petal.rose{
-
-    background:
-    radial-gradient(circle at 30% 30%,
-    #ff9db7 0%,
-    #ff4b74 55%,
-    #c51444 100%);
-
-}
-
-/* Sparkle */
-
-.sparklePetal{
-
-    position:absolute;
-
-    top:-40px;
-
-    width:5px;
-
-    height:5px;
-
-    border-radius:50%;
-
-    background:white;
-
-    box-shadow:
-    0 0 8px #fff,
-    0 0 16px #ffd4ec;
-
-    animation-name:sparkleFall;
-
-    animation-timing-function:linear;
-
-    animation-fill-mode:forwards;
-
-    opacity:0;
-
-}
-
-@keyframes petalFall{
-
-0%{
-
-opacity:0;
-
-transform:
-translateY(-60px)
-translateX(0)
-rotate(0deg)
-scale(.7);
-
-}
-
-10%{
-
-opacity:1;
-
-}
-
-25%{
-
-transform:
-translateY(25vh)
-translateX(-35px)
-rotate(120deg);
-
-}
-
-50%{
-
-transform:
-translateY(50vh)
-translateX(35px)
-rotate(240deg);
-
-}
-
-75%{
-
-transform:
-translateY(75vh)
-translateX(-25px)
-rotate(340deg);
-
-}
-
-100%{
-
-opacity:0;
-
-transform:
-translateY(110vh)
-translateX(30px)
-rotate(480deg)
-scale(.9);
-
-}
-
-}
-
-@keyframes sparkleFall{
-
-0%{
-
-opacity:0;
-
-transform:
-translateY(-30px)
-scale(.2);
-
-}
-
-15%{
-
-opacity:1;
-
-}
-
-100%{
-
-opacity:0;
-
-transform:
-translateY(110vh)
-translateX(20px)
-scale(1.5);
-
-}
-   }
