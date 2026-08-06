@@ -1,14 +1,12 @@
 /* ==========================================
-   ROMANTIC HEART PAGE STYLE
+   ROMANTIC PAPER HEART PAGE
 ========================================== */
 
 
 *{
-
     margin:0;
     padding:0;
     box-sizing:border-box;
-
 }
 
 
@@ -34,124 +32,236 @@ body{
 
     align-items:center;
 
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #fff7fb,
-        #ffe5ef,
-        #fffafc
-    );
-
+    background:#fff4f5;
 
     font-family:
     "Poppins",
     "Segoe UI",
     sans-serif;
 
-
 }
 
 
 
 /* ==========================================
-   PAPER BACKGROUND
+   PAPER TEXTURE BACKGROUND
 ========================================== */
 
 
-.paper-background{
+.paper-bg{
 
-    position:fixed;
+    position:absolute;
+
+    inset:0;
+
+    z-index:-5;
+
+
+    background:
+
+    radial-gradient(
+        circle at 50% 30%,
+        rgba(255,220,230,.8),
+        transparent 45%
+    ),
+
+    linear-gradient(
+        120deg,
+        #fff8f5,
+        #ffecef
+    );
+
+
+}
+
+
+
+/* soft paper noise effect */
+
+.paper-bg::after{
+
+    content:"";
+
+    position:absolute;
 
     inset:0;
 
 
-    background:
+    opacity:.12;
+
+
+    background-image:
 
     radial-gradient(
-        circle at top,
-        rgba(255,255,255,.9),
-        transparent 40%
-    ),
-
-
-    linear-gradient(
-        120deg,
-        #fff1f7,
-        #ffe1ec
+        #b78c8c 0.7px,
+        transparent 0.7px
     );
 
 
-    z-index:-3;
+    background-size:
+    8px 8px;
 
 }
+
 
 
 
 
 /* ==========================================
-   ROMANTIC GLOW
+   TOP HEART DECORATION
 ========================================== */
 
 
-.romantic-glow{
+.top-heart{
+
+    position:absolute;
+
+    top:30px;
+
+    right:60px;
 
 
-    position:fixed;
+    font-size:130px;
+
+    color:#d61f55;
 
 
-    width:600px;
+    transform:
+    rotate(-15deg);
 
-    height:600px;
+
+    opacity:.9;
+
+}
 
 
-    border-radius:50%;
+
+
+
+/* SIDE SMALL HEARTS
+========================================== */
+
+
+.side-hearts{
+
+    position:absolute;
+
+    right:35px;
+
+    top:170px;
+
+
+    display:flex;
+
+    flex-direction:column;
+
+
+    gap:35px;
+
+
+    color:#a80032;
+
+
+    font-size:35px;
+
+
+}
+
+
+
+
+
+/* ==========================================
+   NEWSPAPER CORNER
+========================================== */
+
+
+.paper-corner{
+
+    position:absolute;
+
+
+    bottom:-30px;
+
+    left:-30px;
+
+
+    width:430px;
+
+    height:230px;
 
 
     background:
 
-    radial-gradient(
-        circle,
-        rgba(255,130,180,.25),
-        transparent 70%
+    linear-gradient(
+        120deg,
+        #d8b8a4,
+        #fff0e5
     );
 
 
-    filter:blur(40px);
+    transform:
+    rotate(-8deg);
 
 
-    animation:
-
-    glowMove 8s infinite alternate;
+    padding:70px 40px;
 
 
-    z-index:-2;
+    color:#3d3030;
+
+
+    font-size:25px;
+
+
+    font-family:serif;
+
+
+    box-shadow:
+
+    0 -10px 30px
+    rgba(0,0,0,.08);
+
+}
+
+
+
+.paper-corner strong{
+
+    font-size:45px;
 
 }
 
 
 
 
-@keyframes glowMove{
+
+/* ==========================================
+   FLOWER
+========================================== */
 
 
-from{
+.flower-decoration{
 
-transform:
-translate(-80px,-40px);
+
+    position:absolute;
+
+
+    right:20px;
+
+    bottom:-10px;
+
+
+    font-size:130px;
+
+
+    filter:
+    drop-shadow(
+    0 10px 15px
+    rgba(0,0,0,.15)
+    );
 
 }
 
-
-to{
-
-transform:
-translate(100px,80px);
-
-}
-
-}
 
 
 
@@ -172,8 +282,7 @@ translate(100px,80px);
     height:100%;
 
 
-    z-index:2;
-
+    z-index:3;
 
 }
 
@@ -181,7 +290,7 @@ translate(100px,80px);
 
 
 /* ==========================================
-   MESSAGE INSIDE HEART
+   MESSAGE
 ========================================== */
 
 
@@ -194,19 +303,6 @@ translate(100px,80px);
     z-index:5;
 
 
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-
     text-align:center;
 
 
@@ -214,20 +310,21 @@ translate(100px,80px);
 
 
     transform:
-    scale(.5);
+    scale(.4);
 
 
 
-    color:#ff477e;
+    color:#ff3775;
 
 
     font-size:
 
     clamp(
-        28px,
-        6vw,
-        55px
+        35px,
+        7vw,
+        70px
     );
+
 
 
     font-weight:700;
@@ -237,22 +334,16 @@ translate(100px,80px);
     text-shadow:
 
 
-    0 0 15px rgba(255,90,150,.5),
+    0 0 15px #ffb4cc,
 
-
-    0 0 30px rgba(255,90,150,.3);
+    0 0 35px #ff75a5;
 
 
 
     transition:
-
     1.5s ease;
 
-
-    pointer-events:none;
-
 }
-
 
 
 
@@ -271,81 +362,133 @@ translate(100px,80px);
 
 
 
+
 /* ==========================================
-   MUSIC BUTTON
+   PETALS
 ========================================== */
 
 
-#musicButton{
+#petalContainer{
 
 
-    position:fixed;
+    position:absolute;
 
 
-    bottom:25px;
+    inset:0;
 
 
-    right:25px;
+    overflow:hidden;
 
 
-    z-index:20;
+    pointer-events:none;
 
 
-    padding:
+    z-index:8;
 
-    12px 25px;
-
-
-    border:none;
+}
 
 
-    border-radius:30px;
+
+
+.petal{
+
+
+    position:absolute;
+
+
+    top:-50px;
+
+
+    border-radius:70% 30%;
+
+
+    background:#ff9dbd;
+
+
+    animation:
+
+    fallPetal linear infinite;
+
+
+}
+
+
+
+
+.cherry{
 
 
     background:
 
-    rgba(
-        255,
-        255,
-        255,
-        .65
+    radial-gradient(
+    circle,
+    #ffd1df,
+    #ff7fa8
     );
 
-
-    backdrop-filter:
-    blur(10px);
+}
 
 
 
-    color:#d81b60;
+
+.rose{
 
 
-    font-size:16px;
+    background:
 
-
-    cursor:pointer;
-
-
-
-    box-shadow:
-
-    0 10px 30px
-    rgba(255,80,140,.25);
-
-
+    radial-gradient(
+    circle,
+    #ffccd5,
+    #e91e63
+    );
 
 }
 
 
 
 
-#musicButton:hover{
+@keyframes fallPetal{
 
 
-    transform:
-    scale(1.05);
+0%{
+
+transform:
+
+translateY(-50px)
+translateX(0)
+rotate(0deg);
+
 
 }
+
+
+
+50%{
+
+transform:
+
+translateX(80px)
+rotate(180deg);
+
+
+}
+
+
+
+100%{
+
+transform:
+
+translateY(110vh)
+translateX(-60px)
+rotate(360deg);
+
+
+}
+
+
+}
+
 
 
 
@@ -357,66 +500,34 @@ translate(100px,80px);
 .floating-heart{
 
 
-    position:absolute;
+position:absolute;
 
 
-    color:
-
-    rgba(
-        255,
-        80,
-        140,
-        .6
-    );
+color:#ff4f8b;
 
 
-    animation:
+animation:
 
-    floatUp linear forwards;
+floatUp linear forwards;
 
 
 }
-
 
 
 
 @keyframes floatUp{
 
 
-from{
-
-transform:
-translateY(0)
-rotate(0);
-
-opacity:0;
-
-}
-
-
-20%{
-
-opacity:1;
-
-}
-
-
-
 to{
 
-
 transform:
-
 translateY(-110vh)
-
 rotate(360deg);
 
 
 opacity:0;
 
-
 }
-
 
 }
 
@@ -431,127 +542,129 @@ opacity:0;
 .sparkle{
 
 
-    position:absolute;
+position:absolute;
 
 
-    width:4px;
+width:5px;
 
-    height:4px;
-
-
-    border-radius:50%;
+height:5px;
 
 
-    background:white;
+border-radius:50%;
 
 
-    box-shadow:
-
-    0 0 10px white,
-    0 0 20px #ff9ec4;
+background:white;
 
 
-    animation:
+box-shadow:
 
-    sparkleAnim 3s linear;
+0 0 15px
+#ff7aaa;
 
 
 }
 
 
-
-
-@keyframes sparkleAnim{
-
-
-0%{
-
-opacity:0;
-
-transform:scale(.2);
-
-}
-
-
-50%{
-
-opacity:1;
-
-}
-
-
-
-100%{
-
-opacity:0;
-
-transform:scale(1.5);
-
-}
-
-
-}
 
 
 
 /* ==========================================
-   PETAL CONTAINER
+   MUSIC BUTTON
 ========================================== */
-
-
-#petalContainer{
-
-
-    position:fixed;
-
-
-    inset:0;
-
-
-    overflow:hidden;
-
-
-    pointer-events:none;
-
-
-    z-index:10;
-
-
-}
-
-
-
-/* ==========================================
-   MOBILE OPTIMIZATION
-========================================== */
-
-
-@media(max-width:600px){
 
 
 #musicButton{
 
 
-    bottom:15px;
-
-    right:15px;
+position:fixed;
 
 
-    font-size:14px;
+right:25px;
+
+bottom:25px;
+
+
+z-index:20;
+
+
+padding:
+
+12px 25px;
+
+
+border:none;
+
+
+border-radius:30px;
+
+
+background:white;
+
+
+color:#e91e63;
+
+
+font-size:16px;
+
+
+box-shadow:
+
+0 5px 25px
+rgba(255,70,130,.3);
 
 
 }
 
 
 
-#heartMessage{
 
 
-    font-size:32px;
+/* MOBILE */
 
+@media(max-width:600px){
+
+
+.top-heart{
+
+font-size:80px;
+
+right:10px;
 
 }
 
+
+.side-hearts{
+
+right:10px;
+
+font-size:22px;
+
+}
+
+
+.paper-corner{
+
+width:280px;
+
+height:160px;
+
+font-size:16px;
+
+}
+
+
+.paper-corner strong{
+
+font-size:30px;
+
+}
+
+
+.flower-decoration{
+
+font-size:80px;
+
+}
 
 
 }
