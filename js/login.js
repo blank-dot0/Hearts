@@ -1,48 +1,76 @@
-// =====================================
-// LOGIN SYSTEM
-// Any username/password accepted
-// =====================================
+// ==========================================
+// LOGIN PAGE CONTROL
+// ==========================================
 
 
-const loginForm = document.getElementById("loginForm");
-const button = document.getElementById("loginButton");
-
-
-loginForm.addEventListener("submit", function(e){
-
-    e.preventDefault();
-
-
-    // Button animation
-
-    button.innerHTML = "Opening ❤️";
-
-    button.style.transform = "scale(0.95)";
-
-
-    setTimeout(()=>{
-
-
-        button.style.transform = "scale(1)";
-
-
-        // Smooth transition
-
-        document.body.style.opacity = "0";
-
-
-        setTimeout(()=>{
-
-
-            window.location.href = "heart.html";
-
-
-        },1000);
+const enterButton =
+document.getElementById(
+    "enterBtn"
+);
 
 
 
-    },800);
+if(enterButton){
+
+
+    enterButton.addEventListener(
+        "click",
+        () => {
+
+
+            // No username/password checking
+            // Anyone can enter
+
+
+            enterButton.innerHTML =
+            "Loading ❤️";
+
+
+            enterButton.style.opacity =
+            "0.7";
 
 
 
-});
+            setTimeout(()=>{
+
+
+                window.location.href =
+                "heart.html";
+
+
+            },800);
+
+
+
+        }
+    );
+
+}
+
+
+
+
+// Allow Enter key press
+
+document.addEventListener(
+    "keydown",
+
+    (event)=>{
+
+
+        if(
+            event.key === "Enter"
+        ){
+
+
+            if(enterButton){
+
+                enterButton.click();
+
+            }
+
+        }
+
+
+    }
+);
