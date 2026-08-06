@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,17 +6,12 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
-    <title>For My Princess ❤️</title>
+    <title>Hi My Princess 🩷</title>
 
     <link rel="stylesheet" href="css/heart.css">
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
-        rel="stylesheet"
-    >
 </head>
 
 <body>
@@ -24,16 +19,11 @@
     <!-- Paper texture -->
     <div class="paper-texture"></div>
 
+    <!-- Soft background glow -->
+    <div class="background-glow"></div>
 
-    <!-- Decorative top-right heart -->
-    <div class="top-decoration">
-        <div class="drawn-heart">♡</div>
-        <div class="small-heart">♥</div>
-    </div>
-
-
-    <!-- Side hearts -->
-    <div class="side-hearts">
+    <!-- Decorative hearts -->
+    <div class="edge-decoration right-decoration">
         <span>♥</span>
         <span>♥</span>
         <span>♥</span>
@@ -41,72 +31,71 @@
         <span>♥</span>
     </div>
 
+    <div class="edge-decoration left-decoration">
+        <span>♥</span>
+        <span>♥</span>
+        <span>♥</span>
+    </div>
 
-    <!-- Floating background hearts -->
-    <div id="floatingHearts"></div>
+    <!-- Top handwritten heart -->
+    <div class="corner-love">
+        ♡
+    </div>
 
+    <!-- Main heart -->
+    <canvas id="heartCanvas"></canvas>
+
+    <!-- Text inside heart -->
+    <div id="message">
+        <span>Hi My</span>
+        <span>Princess 🩷</span>
+    </div>
 
     <!-- Sparkles -->
     <div id="sparkles"></div>
 
+    <!-- Bottom decorations -->
+    <div class="bottom-left-decoration">
 
-    <!-- MAIN HEART -->
-    <main class="heart-section">
-
-        <canvas id="heartCanvas"></canvas>
-
-        <div id="heartMessage">
-            <span>Hi My</span>
-            <span>Princess</span>
-            <span class="message-heart">♥</span>
+        <div class="favorite-small">
+            you are my
         </div>
 
-        <div class="heart-shadow"></div>
+        <div class="favorite-big">
+            favorite
+        </div>
 
-    </main>
-
-
-    <!-- Bottom left collage -->
-    <div class="bottom-collage">
-
-        <div class="newspaper"></div>
-
-        <div class="favorite-text">
-            <small>you are my</small>
-            <strong>favorite</strong>
-            <em>person</em>
+        <div class="favorite-script">
+            person
         </div>
 
     </div>
 
-
-    <!-- Bottom right decoration -->
-    <div class="bottom-right">
-
-        <div class="fingerprint-heart">
-            ♡
-        </div>
-
-        <div class="flower">
-            🌺
-        </div>
-
+    <div class="fingerprint-heart">
+        ♡
     </div>
 
+    <div class="flower">
+        🌺
+    </div>
 
     <!-- Music -->
-    <audio id="bgMusic" loop>
+
+    <audio id="bgMusic" loop preload="auto">
         <source src="assets/audio/love.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicButton" aria-label="Play music">
-        ♪
-        <span>Music</span>
+    <button
+        id="musicButton"
+        type="button"
+        aria-label="Play or pause music"
+    >
+        ♫
     </button>
 
 
     <script src="js/heart.js"></script>
- <div id="petalContainer"></div>
 
 </body>
+
 </html>
