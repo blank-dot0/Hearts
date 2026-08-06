@@ -692,3 +692,195 @@ body {
     }
 
 }
+/* ==========================================
+   REALISTIC FALLING PETALS
+========================================== */
+
+#petalContainer{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    z-index:9;
+
+}
+
+.petal{
+
+    position:absolute;
+
+    top:-80px;
+
+    width:18px;
+
+    height:24px;
+
+    opacity:0;
+
+    border-radius:
+        60% 60% 60% 60% /
+        80% 80% 40% 40%;
+
+    transform-origin:center;
+
+    animation-name:petalFall;
+
+    animation-timing-function:linear;
+
+    animation-fill-mode:forwards;
+
+    box-shadow:
+        inset -2px -2px 4px rgba(255,255,255,.45),
+        0 0 8px rgba(255,120,170,.25);
+
+}
+
+/* Cherry blossom */
+
+.petal.cherry{
+
+    background:
+    radial-gradient(circle at 35% 30%,
+    #ffd8e8 0%,
+    #ffb7d2 45%,
+    #ff8eb7 100%);
+
+}
+
+/* Rose */
+
+.petal.rose{
+
+    background:
+    radial-gradient(circle at 30% 30%,
+    #ff9db7 0%,
+    #ff4b74 55%,
+    #c51444 100%);
+
+}
+
+/* Sparkle */
+
+.sparklePetal{
+
+    position:absolute;
+
+    top:-40px;
+
+    width:5px;
+
+    height:5px;
+
+    border-radius:50%;
+
+    background:white;
+
+    box-shadow:
+    0 0 8px #fff,
+    0 0 16px #ffd4ec;
+
+    animation-name:sparkleFall;
+
+    animation-timing-function:linear;
+
+    animation-fill-mode:forwards;
+
+    opacity:0;
+
+}
+
+@keyframes petalFall{
+
+0%{
+
+opacity:0;
+
+transform:
+translateY(-60px)
+translateX(0)
+rotate(0deg)
+scale(.7);
+
+}
+
+10%{
+
+opacity:1;
+
+}
+
+25%{
+
+transform:
+translateY(25vh)
+translateX(-35px)
+rotate(120deg);
+
+}
+
+50%{
+
+transform:
+translateY(50vh)
+translateX(35px)
+rotate(240deg);
+
+}
+
+75%{
+
+transform:
+translateY(75vh)
+translateX(-25px)
+rotate(340deg);
+
+}
+
+100%{
+
+opacity:0;
+
+transform:
+translateY(110vh)
+translateX(30px)
+rotate(480deg)
+scale(.9);
+
+}
+
+}
+
+@keyframes sparkleFall{
+
+0%{
+
+opacity:0;
+
+transform:
+translateY(-30px)
+scale(.2);
+
+}
+
+15%{
+
+opacity:1;
+
+}
+
+100%{
+
+opacity:0;
+
+transform:
+translateY(110vh)
+translateX(20px)
+scale(1.5);
+
+}
+   }
