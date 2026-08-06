@@ -296,47 +296,50 @@ body{
 
 #heartMessage{
 
-
     position:absolute;
-
 
     z-index:5;
 
-
     text-align:center;
-
 
     opacity:0;
 
-
-    transform:
-    scale(.4);
+    transform:scale(.4);
 
 
+    color:#ff3f7f;
 
-    color:#ff3775;
+font-family: "Great Vibes", cursive;
 
 
     font-size:
-
     clamp(
-        35px,
-        7vw,
-        70px
+        45px,
+        8vw,
+        85px
     );
 
 
+    font-style:italic;
 
-    font-weight:700;
+
+    font-weight:900;
+
+
+    letter-spacing:2px;
+
+
+    line-height:1.1;
 
 
 
     text-shadow:
 
+    0 0 10px #ffd1df,
 
-    0 0 15px #ffb4cc,
+    0 0 25px #ff8db5,
 
-    0 0 35px #ff75a5;
+    0 0 45px #ff4f8b;
 
 
 
