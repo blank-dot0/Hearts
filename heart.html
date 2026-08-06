@@ -2,99 +2,111 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
-    <meta
+    <meta 
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
-    <title>Hi My Princess 🩷</title>
+    <title>
+        Hi My Princess 🩷
+    </title>
+
 
     <link rel="stylesheet" href="css/heart.css">
+
 </head>
+
 
 <body>
 
-    <!-- Paper texture -->
-    <div class="paper-texture"></div>
 
-    <!-- Soft background glow -->
-    <div class="background-glow"></div>
+<!-- Soft paper background -->
 
-    <!-- Decorative hearts -->
-    <div class="edge-decoration right-decoration">
-        <span>♥</span>
-        <span>♥</span>
-        <span>♥</span>
-        <span>♥</span>
-        <span>♥</span>
-    </div>
+<div class="paper-background"></div>
 
-    <div class="edge-decoration left-decoration">
-        <span>♥</span>
-        <span>♥</span>
-        <span>♥</span>
-    </div>
 
-    <!-- Top handwritten heart -->
-    <div class="corner-love">
-        ♡
-    </div>
+<!-- Light glow -->
 
-    <!-- Main heart -->
-    <canvas id="heartCanvas"></canvas>
+<div class="romantic-glow"></div>
 
-    <!-- Text inside heart -->
-    <div id="message">
-        <span>Hi My</span>
-        <span>Princess 🩷</span>
-    </div>
 
-    <!-- Sparkles -->
-    <div id="sparkles"></div>
 
-    <!-- Bottom decorations -->
-    <div class="bottom-left-decoration">
+<!-- Floating hearts -->
 
-        <div class="favorite-small">
-            you are my
-        </div>
+<div id="floatingHearts"></div>
 
-        <div class="favorite-big">
-            favorite
-        </div>
 
-        <div class="favorite-script">
-            person
-        </div>
 
-    </div>
+<!-- Sparkles -->
 
-    <div class="fingerprint-heart">
-        ♡
-    </div>
+<div id="sparkles"></div>
 
-    <div class="flower">
-        🌺
-    </div>
 
-    <!-- Music -->
 
-    <audio id="bgMusic" loop preload="auto">
-        <source src="assets/audio/love.mp3" type="audio/mpeg">
-    </audio>
+<!-- Falling petals -->
 
-    <button
-        id="musicButton"
-        type="button"
-        aria-label="Play or pause music"
+<div id="petalContainer"></div>
+
+
+
+<!-- Heart animation -->
+
+<canvas id="heartCanvas"></canvas>
+
+
+
+
+<!-- Message -->
+
+<div id="heartMessage">
+
+    <span>
+        Hi My
+    </span>
+
+    <span>
+        Princess 🩷
+    </span>
+
+</div>
+
+
+
+
+<!-- Music -->
+
+<audio 
+    id="bgMusic"
+    loop
+    preload="auto"
+>
+
+    <source 
+        src="assets/audio/love.mp3"
+        type="audio/mpeg"
     >
-        ♫
-    </button>
+
+</audio>
 
 
-    <script src="js/heart.js"></script>
+
+<button 
+    id="musicButton"
+>
+
+    ♪ Music
+
+</button>
+
+
+
+
+
+<script src="js/heart.js"></script>
+
 
 </body>
 
