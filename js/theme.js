@@ -1,117 +1,166 @@
-// =====================================
+// ==========================================
 // AUTOMATIC DAY / NIGHT THEME
-// =====================================
+// ==========================================
 
 
 function updateTheme(){
 
 
-    let hour = new Date().getHours();
+    const hour =
+        new Date().getHours();
 
 
-    const body = document.body;
+
+    const body =
+        document.body;
 
 
-    if(hour >= 19 || hour < 6){
 
-        body.classList.add("night");
+    /*
+        Day:
+        6 AM - 6 PM
+
+        Night:
+        6 PM - 6 AM
+    */
+
+
+    if(
+        hour >= 6 &&
+        hour < 18
+    ){
+
+        body.classList.remove(
+            "night"
+        );
 
 
     }
-
     else{
 
 
-        body.classList.remove("night");
+        body.classList.add(
+            "night"
+        );
 
 
     }
-
-
 
 }
 
 
 
+// Run immediately
+
 updateTheme();
 
 
-// Update every minute
+// Check every minute
 
-setInterval(updateTheme,60000);
+setInterval(
 
+    updateTheme,
 
+    60000
 
-
-// =====================================
-// FLOATING PINK PARTICLES
-// =====================================
-
-
-const particleContainer =
-document.getElementById("particles");
+);
 
 
 
-function createParticle(){
+
+// ==========================================
+// FLOATING HEART GENERATOR
+// ==========================================
 
 
-    const particle =
-    document.createElement("div");
-
-
-    particle.className =
-    "floating-particle";
-
-
-
-    let size =
-    Math.random()*10+3;
+const heartContainer =
+document.querySelector(
+    ".floating-hearts"
+);
 
 
 
-    particle.style.width =
-    size+"px";
+function createHeart(){
 
 
-    particle.style.height =
-    size+"px";
-
-
-
-    particle.style.left =
-    Math.random()*100+"%";
+    if(!heartContainer)
+        return;
 
 
 
-    particle.style.animationDuration =
-    (Math.random()*5+5)+"s";
+    const heart =
+    document.createElement(
+        "span"
+    );
+
+
+    heart.className =
+    "floating-heart";
+
+
+    heart.innerHTML =
+    Math.random() > 0.5
+    ? "♥"
+    : "♡";
 
 
 
-    particle.style.opacity =
-    Math.random();
+    heart.style.left =
+    Math.random()*100
+    + "vw";
 
 
 
-    particleContainer.appendChild(particle);
+    heart.style.fontSize =
+
+    (
+        Math.random()*20
+        + 12
+
+    )
+    + "px";
+
+
+
+    heart.style.animationDuration =
+
+    (
+        Math.random()*5
+        + 6
+
+    )
+    + "s";
+
+
+
+    heartContainer.appendChild(
+        heart
+    );
 
 
 
     setTimeout(()=>{
 
 
-        particle.remove();
+        heart.remove();
 
 
-    },10000);
+    },
 
+    12000);
 
 
 }
 
 
 
-// Create particles continuously
 
-setInterval(createParticle,250);
+// Create hearts continuously
+
+setInterval(
+
+    createHeart,
+
+    700
+
+);
