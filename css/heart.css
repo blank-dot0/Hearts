@@ -295,6 +295,7 @@ body{
 
 
 #heartMessage{
+#heartMessage{
 
     position:absolute;
 
@@ -309,7 +310,12 @@ body{
 
     color:#ff3f7f;
 
-font-family: "Great Vibes", cursive;
+
+    font-family:
+    "Brush Script MT",
+    "Segoe Script",
+    "Lucida Handwriting",
+    cursive;
 
 
     font-size:
@@ -347,9 +353,6 @@ font-family: "Great Vibes", cursive;
     1.5s ease;
 
 }
-
-
-
 #heartMessage.show{
 
 
