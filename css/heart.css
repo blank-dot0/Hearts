@@ -292,9 +292,6 @@ body{
 /* ==========================================
    MESSAGE
 ========================================== */
-
-
-#heartMessage{
 #heartMessage{
 
     position:absolute;
@@ -307,46 +304,22 @@ body{
 
     transform:scale(.4);
 
-
-    color:#ff3f7f;
-
-
-    font-family: "Great Vibes", cursive;
-
+    color:#ff3775;
 
     font-size:
     clamp(
-        45px,
-        8vw,
-        85px
+        35px,
+        7vw,
+        70px
     );
 
-
-    font-style:italic;
-
-
-    font-weight:900;
-
-
-    letter-spacing:2px;
-
-
-    line-height:1.1;
-
-
+    font-weight:700;
 
     text-shadow:
+    0 0 15px #ffb4cc,
+    0 0 35px #ff75a5;
 
-    0 0 10px #ffd1df,
-
-    0 0 25px #ff8db5,
-
-    0 0 45px #ff4f8b;
-
-
-
-    transition:
-    1.5s ease;
+    transition:1.5s ease;
 
 }
 #heartMessage.show{
